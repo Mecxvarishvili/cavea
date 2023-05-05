@@ -6,12 +6,14 @@ type Props = {
     children: ReactElement,
     id: string,
     label: string,
+    formik: any
 }
-const FormItem = ({children, id, label}: Props )=> {
+const FormItem = ({children, id, label, formik}: Props )=> {
     return (
         <Form.Group className="my-4" >
-            <Form.Label for={id} >{label}</Form.Label>
+            <Form.Label htmlFor={id} >{label}</Form.Label>
             {children}
+            {formik.touched[id] && formik.errors[id] && <Form.Text>{formik.errors[id]}</Form.Text>}
         </Form.Group>
     );
 };
