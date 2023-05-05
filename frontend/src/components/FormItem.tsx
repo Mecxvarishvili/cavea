@@ -1,18 +1,34 @@
 import React, { ReactElement } from 'react';
 import { Form } from 'react-bootstrap';
-import InputGroup from 'react-bootstrap/InputGroup';
+import { FormItemType } from '../serialize/types';
 
-type Props = {
-    children: ReactElement,
-    id: string,
-    label: string,
+interface Props extends FormItemType {
     formik: any
 }
-const FormItem = ({children, id, label, formik}: Props )=> {
+const FormItem = ({type, id, label, options, formik}: Props )=> {
     return (
         <Form.Group className="my-4" >
             <Form.Label htmlFor={id} >{label}</Form.Label>
-            {children}
+            {type === "select" ?
+            <Form.Select id={id}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values[id]} 
+            >
+                <option defaultChecked hidden>ადგილმდებარეობა</option>
+                {options?.map(option => (
+                    <option key={option}>{option}</option>
+                ))}
+
+            </Form.Select>
+            : <Form.Control
+                type={type}
+                id={id}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values[id]}
+            />
+            }
             {formik.touched[id] && formik.errors[id] && <Form.Text>{formik.errors[id]}</Form.Text>}
         </Form.Group>
     );
