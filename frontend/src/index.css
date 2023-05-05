@@ -10719,5 +10719,8 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.item-add-page .form-container {
+  max-width: 500px;
+}
 
 /*# sourceMappingURL=index.css.map */
