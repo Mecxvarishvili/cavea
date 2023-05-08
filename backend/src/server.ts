@@ -7,6 +7,8 @@ const PORT = 8000;
 const app = express();
 app.use(bodyParser.json())
 
+// sequelize.sync()
+
 app.get("/", (req, res) => {
     res.send("hello")
 })

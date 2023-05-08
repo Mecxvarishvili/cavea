@@ -12,10 +12,10 @@ class Inventory extends Model {
     name: string
 
     @Column({
-        type: DataType.STRING,
+        type: DataType.FLOAT,
         allowNull: false
     })
-    location: string
+    locationId: number
 
     @Column({
         type: DataType.FLOAT,
