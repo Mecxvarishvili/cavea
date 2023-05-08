@@ -1,23 +1,15 @@
 const express = require('express');
-const app = express();
-const PORT = 8000;
 const sequelize = require("./db/config")
+const bodyParser = require('body-parser')
+const InventoriesRoute = require('./route/inventories')
+
+const PORT = 8000;
+const app = express();
+app.use(bodyParser.json())
 
 app.get("/", (req, res) => {
     res.send("hello")
 })
-
-app.get("/invetories", (req, res) => {
-    res.send("inventories")
-})
-
-app.post("/inventories", (req, res) => {
-    res.send("inventories")
-})
-
-app.delete("/inventories/:inventoryID", (req, res) => {
-    res.send("sucsessfully deleted")
-})
-
+app.use("/inventories", InventoriesRoute)
 
 app.listen(PORT, () => console.log(`Running on Port: ${PORT}`))
