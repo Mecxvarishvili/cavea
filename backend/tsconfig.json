@@ -2,7 +2,9 @@
   "compilerOptions": {
     "module": "CommonJS",
     "moduleResolution": "node",
-    "target": "ES2020",
+    "target": "ES6",
+    "experimentalDecorators": true, //sequelize-ts
+    "emitDecoratorMetadata": true, //sequelize-ts
     "sourceMap": true,
     "rootDir": "./src",
     "outDir": "./dist",
