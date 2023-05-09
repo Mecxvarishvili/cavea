@@ -95,7 +95,7 @@ function paginationHandler (page, data, limit) {
     }
 
 
-    return data
+    return paginatedData
 
 }
 

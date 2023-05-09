@@ -5,20 +5,17 @@ import FormItem from '../components/FormItem';
 import { useFormik } from 'formik';
 import { number, object, string } from 'yup';
 import { FormType } from '../serialize/types';
+import { api } from '../components/api';
+import { locationOptions } from '../serialize/variables';
 
 const AddPage = () => {
+    
     const form: FormType = [
         {
             type: "select",
-            id: "location",
+            id: "locationId",
             label: "ადგილმდებარეობა:",
-            options: [
-                "მთავარი ოფისი",
-                "კავეა გალერია",
-                "კავეა თბილისი მოლი",
-                "კავეა ისთ ფოინთი",
-                "კავეა სითი მოლი",
-            ]
+            options: [...locationOptions]
         },
         {
             type: "text",
@@ -33,20 +30,23 @@ const AddPage = () => {
     ]
     const formik = useFormik({
         initialValues: {
-            location: "",
+            locationId: "",
             name: "",
             price: "",
         },
         validationSchema: object({
-            location: string()
+            locationId: string()
                 .required("ადგილმდებარეობის მითითება სავალდებულოა"),
             name: string()
                 .required("სახელის მითითება სვალდებულოა"),
             price: number()
-                .required("ფასის მითითება ")
+                .required("ფასის მითითება სვალდებულოა")
         }),
-        onSubmit: value => {
-            console.log("submited")
+        onSubmit: (values, { resetForm }) => {
+            api.createInventory(values)
+                .then(res => console.log(res))
+            resetForm()
+
         }
     })
     return (

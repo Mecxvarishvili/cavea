@@ -17,7 +17,7 @@ const FormItem = ({type, id, label, options, formik}: Props )=> {
             >
                 <option defaultChecked hidden>ადგილმდებარეობა</option>
                 {options?.map(option => (
-                    <option key={option}>{option}</option>
+                    <option key={option.value} value={option.value} >{option.label}</option>
                 ))}
 
             </Form.Select>
