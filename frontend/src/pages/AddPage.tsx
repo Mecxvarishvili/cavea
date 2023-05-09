@@ -7,6 +7,8 @@ import { number, object, string } from 'yup';
 import { FormType } from '../serialize/types';
 import { api } from '../components/api';
 import { locationOptions } from '../serialize/variables';
+import { Link } from 'react-router-dom';
+import pathname from '../serialize/pathnames';
 
 const AddPage = () => {
     
@@ -52,6 +54,9 @@ const AddPage = () => {
     return (
         <div className="item-add-page my-5">
             <div className="form-container mx-auto">
+                <Link to={pathname.HOME_PAGE} >
+                    <Button>ცხრილზე გადასვლა</Button>
+                </Link>
                 <Form onSubmit={formik.handleSubmit} >
                     {form.map(item => (
                         <FormItem key={item.id} {...item} formik={formik} />

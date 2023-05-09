@@ -25,9 +25,10 @@ export type DataType = {
 }
 
 export type ResponseDataType = {
-    prevPage?: number,
-    nextPage?: number,
     results: DataType[]
+    totalPage: number,
+    totalInventories: number,
+    currentPage: number
 }
 
 export type FormType = FormItemType[]

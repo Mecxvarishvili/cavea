@@ -5,11 +5,12 @@ import { DataType } from '../../serialize/types';
 
 interface Props {
     data: DataType[]
+    setToggle: React.Dispatch<React.SetStateAction<boolean>>
 }
-const ItemsTable = ({data}: Props) => {
-    const items = Array.from(Array(20).keys())
+const ItemsTable = ({data, setToggle}: Props) => {
+    console.log("table")
     return (
-        <Table className="" >
+        <Table>
             <thead>
                 <tr>
                     <th>სახელი</th>
@@ -19,8 +20,8 @@ const ItemsTable = ({data}: Props) => {
                 </tr>
             </thead>
             <tbody>
-                {data.map((data: DataType) => (
-                    <TableRow key={data.id} data={data} />
+                {data.map((d: DataType) => (
+                    <TableRow setToggle={setToggle} lastInventory={data.length <= 1} key={d.id} data={d} />
                 ))}
             </tbody>
 

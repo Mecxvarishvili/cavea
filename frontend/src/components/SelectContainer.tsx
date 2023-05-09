@@ -1,19 +1,34 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
 import { SelectOptionsType } from '../serialize/types';
+import { useSearchParams } from 'react-router-dom';
 
 interface Props {
     id: string,
     label: string
     options: SelectOptionsType[],
-    def: string
+    def: string,
+    className?: string
 }
-const SelectContainer = ({id, options, label, def}: Props) => {
+const SelectContainer = ({id, options, label, def, className}: Props) => {
+
+    const [ searchParams, setSearchParams ] = useSearchParams()
+    let defaultValue: string | null = searchParams.get(id)
+
+    function setParameter (e: string) {
+        if(e) {
+            searchParams.set(id, e)
+            setSearchParams(searchParams)
+        } else {
+            searchParams.delete(id)
+            setSearchParams(searchParams)
+        }
+    }
     return (
-        <Form.Group>
-            <Form.Label htmlFor={id} >{label}</Form.Label>
-            <Form.Select id={id} onChange={(e) => console.log(e.target.value)}  >
-                <option>{def}</option>
+        <Form.Group className={className}>
+            <Form.Label className="fw-bold" htmlFor={id} >{label}</Form.Label>
+            <Form.Select id={id} onChange={(e) => setParameter((e.target.value))} defaultValue={defaultValue as string} >
+                <option value="">{def}</option>
                 {options.map(option => (
                     <option value={option.value} key={option.value} >{option.label}</option>
                 ))}

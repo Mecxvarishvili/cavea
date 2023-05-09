@@ -8,7 +8,7 @@ interface Props {
 const Loader = ({isLoading, children}: Props) => {
     return (
         isLoading ?
-        <div>loading</div>
+        <div className="lds-ellipsis d-flex my-5 mx-auto"><div></div><div></div><div></div><div></div></div>
         : children
     );
 };
