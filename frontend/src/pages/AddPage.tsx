@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import FormItem from '../components/FormItem';
@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import pathname from '../serialize/pathnames';
 
 const AddPage = () => {
+    const [ alert, setAlert ] = useState<boolean | string>(false)
     
     const form: FormType = [
         {
@@ -46,7 +47,11 @@ const AddPage = () => {
         }),
         onSubmit: (values, { resetForm }) => {
             api.createInventory(values)
-                .then(res => console.log(res))
+                .then(res => {
+                    if(res.user.id) {
+                        setAlert(res.message)
+                    }
+                })
             resetForm()
 
         }
@@ -57,12 +62,13 @@ const AddPage = () => {
                 <Link to={pathname.HOME_PAGE} >
                     <Button>ცხრილზე გადასვლა</Button>
                 </Link>
-                <Form onSubmit={formik.handleSubmit} >
+                <Form onSubmit={formik.handleSubmit} onChange={() => setAlert(false)} >
                     {form.map(item => (
                         <FormItem key={item.id} {...item} formik={formik} />
                     ))}
                     <Button type="submit">დამატება</Button>
                 </Form>
+                {alert && <div className="mt-5 text-success" >{alert}</div>}
             </div>
         </div>
     );

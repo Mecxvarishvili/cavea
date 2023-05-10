@@ -8,7 +8,6 @@ interface Props {
     setToggle: React.Dispatch<React.SetStateAction<boolean>>
 }
 const ItemsTable = ({data, setToggle}: Props) => {
-    console.log("table")
     return (
         <Table>
             <thead>

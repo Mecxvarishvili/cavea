@@ -16,6 +16,10 @@ const SelectContainer = ({id, options, label, def, className}: Props) => {
     let defaultValue: string | null = searchParams.get(id)
 
     function setParameter (e: string) {
+        if(id === "locationId") {
+            searchParams.delete("page")
+            setSearchParams(searchParams)
+        }
         if(e) {
             searchParams.set(id, e)
             setSearchParams(searchParams)

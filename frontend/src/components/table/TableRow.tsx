@@ -18,10 +18,8 @@ const TableRow = ({data, setToggle, lastInventory}: Props) => {
         .then(res => {
             if(lastInventory) {
                  navigate(pathname.HOME_PAGE)
-                console.log("last")
             } else {
                 setToggle((prevState: boolean)=> !prevState)
-                console.log("hello")
 
             }
             

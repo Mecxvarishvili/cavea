@@ -26,8 +26,7 @@ const MainPage = () => {
             })
             .catch(console.error)
     }, [location.search, toggle])
-    console.log('main')
-    
+
     return (
         <Loader isLoading={isLoading} >
              {data && data.results.length ?
