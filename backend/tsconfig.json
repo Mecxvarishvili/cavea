@@ -3,8 +3,8 @@
     "module": "CommonJS",
     "moduleResolution": "node",
     "target": "ES6",
-    "experimentalDecorators": true, //sequelize-ts
-    "emitDecoratorMetadata": true, //sequelize-ts
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "sourceMap": true,
     "rootDir": "./src",
     "outDir": "./dist",

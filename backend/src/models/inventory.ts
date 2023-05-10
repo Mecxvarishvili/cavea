@@ -1,4 +1,3 @@
-// const {Column, DataType, Model, Table} = require("sequelize-typescript")
 import { Table, Column, Model, DataType } from 'sequelize-typescript';
 @Table({
     tableName: "inventories"

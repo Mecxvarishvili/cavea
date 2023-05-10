@@ -46,7 +46,7 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
     try {
         const user = await Inventory.create(req.body)
-    res.status(201).json({"message": "User created successfully", user})
+    res.status(201).json({"message": "ინვენტარი წარმატებით დაემატა", user})
     } catch (err) {
         res.status(500).json(err)
     }
@@ -57,7 +57,7 @@ router.delete("/:inventoryID", async (req, res) => {
     try {
         const deleted = await Inventory.destroy({where: {id: inventoryID}})
         if(deleted) {
-            res.json({"message": "Deleted successfully"})
+            res.json({"message": "ინვენტარი წარმატებით წაიშალა"})
         } else {
             res.status(404).json({"message": `Inventory with ID: ${inventoryID} does not exist`})
         }
@@ -65,37 +65,6 @@ router.delete("/:inventoryID", async (req, res) => {
         res.status(500).json(err)
     }
 })
-
-function queryHandler() {
-    return async (req, res, next) => {
-        const { page, locationId, sortId } = req.query
-        
-        const order: string[][] = sortHandler(parseInt(sortId))
-        const where: undefined | Object = locationHandler(parseInt(locationId))
-        const limit = 20
-        const offset: undefined | number = pageHandler(page, limit)
-
-        try {
-            const data = await Inventory.findAndCountAll({
-                where,
-                order,
-                offset,
-                limit,
-            })
-
-            res.data = paginationHandler(parseInt(page), data, limit)
-            next()
-        } catch (e) {
-            res.status(500).json(e)
-        }
-        next()
-    }
-}
-function locationHandler(locationId: number) {
-    if(locationId) return {locationId}
-
-    return undefined
-}
 
 function sortHandler (id: number) {
     switch (id) {
@@ -110,30 +79,6 @@ function sortHandler (id: number) {
         default: 
             return [["createdAt", "desc"]]
     }
-}
-
-function pageHandler (page: number | undefined, limit: number) {
-    if(page) {
-        return limit * (page - 1)
-    }
-    return undefined
-}
-
-function paginationHandler (page, data, limit) {
-    let paginatedData: {results: {}, nextPage?: number, prevPage?: number} = {results: data}
-    
-
-    if(page * limit < data.length) {
-        paginatedData.nextPage = page + 1
-    }
-
-    if(page > 1) {
-        paginatedData.prevPage = page - 1
-    }
-
-
-    return paginatedData
-
 }
 
 module.exports = router

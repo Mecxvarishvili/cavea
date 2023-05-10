@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { Form } from 'react-bootstrap';
 import { FormItemType } from '../serialize/types';
 
@@ -29,7 +29,7 @@ const FormItem = ({type, id, label, options, formik}: Props )=> {
                 value={formik.values[id]}
             />
             }
-            {formik.touched[id] && formik.errors[id] && <Form.Text>{formik.errors[id]}</Form.Text>}
+            {formik.touched[id] && formik.errors[id] && <Form.Text className="text-danger" >{formik.errors[id]}</Form.Text>}
         </Form.Group>
     );
 };
